@@ -83,7 +83,7 @@
       as.POSIXct    = sql_try_cast("TIMESTAMP"),
       as.numeric    = sql_try_cast("FLOAT"),
       as.double     = sql_try_cast("FLOAT"),
-      as.integer    = sql_try_cast("INTEGER"),
+      as.integer    = sql_try_cast("NUMERIC"), # in MSSQL this converts to integer
       as.integer64  = sql_try_cast("BIGINT"),
       as.character  = sql_try_cast("VARCHAR(MAX)"),
       log           = sql_prefix("LOG"),
