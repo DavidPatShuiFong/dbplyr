@@ -77,12 +77,15 @@
       if_else        = function(condition, true, false) mssql_sql_if(condition, true, false),
       ifelse         = function(test, yes, no) mssql_sql_if(test, yes, no),
 
-      as.logical    = sql_cast("BIT"),
+      as.logical    = sql_try_cast("BIT"),
 
-      as.Date       = sql_cast("DATE"),
-      as.numeric    = sql_cast("FLOAT"),
-      as.double     = sql_cast("FLOAT"),
-      as.character  = sql_cast("VARCHAR(MAX)"),
+      as.Date       = sql_try_cast("DATE"),
+      as.POSIXct    = sql_try_cast("TIMESTAMP"),
+      as.numeric    = sql_try_cast("FLOAT"),
+      as.double     = sql_try_cast("FLOAT"),
+      as.integer    = sql_try_cast("INTEGER"),
+      as.integer64  = sql_try_cast("BIGINT"),
+      as.character  = sql_try_cast("VARCHAR(MAX)"),
       log           = sql_prefix("LOG"),
       atan2         = sql_prefix("ATN2"),
       ceil          = sql_prefix("CEILING"),
@@ -110,12 +113,12 @@
 
       # lubridate ---------------------------------------------------------------
       # https://en.wikibooks.org/wiki/SQL_Dialects_Reference/Functions_and_expressions/Date_and_time_functions
-      as_date = sql_cast("DATE"),
+      as_date = sql_try_cast("DATE"),
 
       # Using DATETIME2 as it complies with ANSI and ISO.
       # MS recommends DATETIME2 for new work:
       # https://docs.microsoft.com/en-us/sql/t-sql/data-types/datetime-transact-sql?view=sql-server-2017
-      as_datetime = sql_cast("DATETIME2"),
+      as_datetime = sql_try_cast("DATETIME2"),
 
       today = function() sql_expr(CAST(SYSDATETIME() %AS% DATE)),
 

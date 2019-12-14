@@ -227,7 +227,17 @@ sql_not_supported <- function(f) {
 sql_cast <- function(type) {
   type <- sql(type)
   function(x) {
+    sql_expr(cast(!!x %as% !!type))
+  }
+}
+
+#' @rdname sql_variant
+#' @export
+sql_try_cast <- function(type) {
+  type <- sql(type)
+  function(x) {
     sql_expr(try_cast(!!x %as% !!type))
+    # try_cast available in MSSQL 2012+
   }
 }
 
